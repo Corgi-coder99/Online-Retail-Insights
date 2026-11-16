@@ -11,144 +11,144 @@
  "n_train": 4964,
  "n_test": 4941,
  "test_actual_repeat_rate": 0.5166970248937462,
- "auc_model": 0.7527900961918879,
+ "auc_model": 0.7562541785832151,
  "auc_baseline": 0.7787782593605185,
- "spearman_spend_model": 0.5457415599745472,
- "spearman_spend_baseline": 0.5644385666321026,
+ "spearman_spend_model": 0.5422313167704444,
+ "spearman_spend_baseline": 0.5644392537155283,
  "total_actual": 4259430.75,
- "total_pred_model": 5631460.1956728855,
+ "total_pred_model": 5804594.95357166,
  "total_pred_baseline": 3095552.87,
- "top_decile_capture_model": 0.6265953026704331,
+ "top_decile_capture_model": 0.6245787937742618,
  "top_decile_capture_baseline": 0.6128800779306014,
  "calibration_deciles": [
   {
    "bin": 0,
    "n": 495,
-   "predicted": 54520.0,
-   "actual": 33424.0
+   "predicted": 55284.0,
+   "actual": 34544.0
   },
   {
    "bin": 1,
    "n": 494,
-   "predicted": 97523.0,
-   "actual": 42631.0
+   "predicted": 98898.0,
+   "actual": 42848.0
   },
   {
    "bin": 2,
    "n": 494,
-   "predicted": 149283.0,
-   "actual": 98144.0
+   "predicted": 156287.0,
+   "actual": 97506.0
   },
   {
    "bin": 3,
    "n": 494,
-   "predicted": 195922.0,
-   "actual": 86477.0
+   "predicted": 204488.0,
+   "actual": 80064.0
   },
   {
    "bin": 4,
    "n": 494,
-   "predicted": 244410.0,
-   "actual": 117181.0
+   "predicted": 257713.0,
+   "actual": 125215.0
   },
   {
    "bin": 5,
    "n": 494,
-   "predicted": 303326.0,
-   "actual": 160572.0
+   "predicted": 317418.0,
+   "actual": 158042.0
   },
   {
    "bin": 6,
    "n": 494,
-   "predicted": 378383.0,
-   "actual": 238354.0
+   "predicted": 391044.0,
+   "actual": 238616.0
   },
   {
    "bin": 7,
    "n": 494,
-   "predicted": 480771.0,
-   "actual": 331862.0
+   "predicted": 494620.0,
+   "actual": 341992.0
   },
   {
    "bin": 8,
    "n": 494,
-   "predicted": 669741.0,
-   "actual": 481845.0
+   "predicted": 706673.0,
+   "actual": 480254.0
   },
   {
    "bin": 9,
    "n": 494,
-   "predicted": 3057581.0,
-   "actual": 2668939.0
+   "predicted": 3122169.0,
+   "actual": 2660350.0
   }
  ],
  "future": {
   "snapshot": "2011-12-10",
   "customers": 5852,
-  "expected_buyers": 2865.281357701251,
-  "expected_spend_180d": 4246098.693545485,
+  "expected_buyers": 2898.507189067541,
+  "expected_spend_180d": 4397207.193401871,
   "segments": [
    {
     "segment": "At risk",
-    "customers": 837,
-    "expected_buyers": 259.027,
-    "expected_spend": 132231.7,
-    "hist_net_gross": 1610969.92,
-    "avg_p_buy": 0.309
+    "customers": 830,
+    "expected_buyers": 244.787,
+    "expected_spend": 116186.927,
+    "hist_net_gross": 1604314.52,
+    "avg_p_buy": 0.295
    },
    {
     "segment": "Champions",
-    "customers": 1282,
-    "expected_buyers": 1127.232,
-    "expected_spend": 3186502.294,
-    "hist_net_gross": 11660371.95,
-    "avg_p_buy": 0.879
+    "customers": 1281,
+    "expected_buyers": 1150.978,
+    "expected_spend": 3331037.352,
+    "hist_net_gross": 11639992.62,
+    "avg_p_buy": 0.898
    },
    {
     "segment": "Hibernating",
-    "customers": 1504,
-    "expected_buyers": 248.28,
-    "expected_spend": 95965.296,
-    "hist_net_gross": 615264.66,
-    "avg_p_buy": 0.165
+    "customers": 1511,
+    "expected_buyers": 241.608,
+    "expected_spend": 92053.563,
+    "hist_net_gross": 623849.22,
+    "avg_p_buy": 0.16
    },
    {
     "segment": "Loyal",
-    "customers": 709,
-    "expected_buyers": 472.71,
-    "expected_spend": 372442.755,
-    "hist_net_gross": 1858946.17,
-    "avg_p_buy": 0.667
+    "customers": 700,
+    "expected_buyers": 485.593,
+    "expected_spend": 379520.596,
+    "hist_net_gross": 1840269.46,
+    "avg_p_buy": 0.694
    },
    {
     "segment": "Needs attention",
-    "customers": 764,
-    "expected_buyers": 334.46,
-    "expected_spend": 178442.518,
-    "hist_net_gross": 563451.82,
-    "avg_p_buy": 0.438
+    "customers": 767,
+    "expected_buyers": 342.483,
+    "expected_spend": 186123.971,
+    "hist_net_gross": 581681.4,
+    "avg_p_buy": 0.447
    },
    {
     "segment": "New",
-    "customers": 48,
-    "expected_buyers": 23.109,
-    "expected_spend": 10878.62,
-    "hist_net_gross": 16006.09,
-    "avg_p_buy": 0.481
+    "customers": 52,
+    "expected_buyers": 25.941,
+    "expected_spend": 13109.979,
+    "hist_net_gross": 18341.0,
+    "avg_p_buy": 0.499
    },
    {
     "segment": "Promising",
-    "customers": 708,
-    "expected_buyers": 400.463,
-    "expected_spend": 269635.51,
-    "hist_net_gross": 799930.37,
-    "avg_p_buy": 0.566
+    "customers": 711,
+    "expected_buyers": 407.117,
+    "expected_spend": 279174.805,
+    "hist_net_gross": 816492.76,
+    "avg_p_buy": 0.573
    }
   ],
   "high_value_low_prob": {
-   "customers": 69,
+   "customers": 74,
    "of_high_value": 1171,
-   "hist_gross": 929445.4700000002
+   "hist_gross": 943423.7000000001
   }
  }
 }

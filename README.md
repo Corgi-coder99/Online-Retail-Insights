@@ -27,7 +27,7 @@ Open `report/index.html` in a browser (single file, works offline, light and dar
 ## Honest forecasting
 
 - Forecasts are judged on past data first. A complex model is used only if it beats the simple one by at least 2 percentage points; here none did, so the simple one is used.
-- The customer model (will a customer buy again in 180 days, and how much) was validated on a later period it never saw. It ranked customers about as well as "recent activity" and over-predicted the total by 32%. The report says so, gives a corrected range, and tells readers to use segment totals, not individual probabilities.
+- The customer model (will a customer buy again in 180 days, and how much) was validated on a later period it never saw. It ranked customers about as well as "recent activity" and over-predicted the total by 36%. The report says so, gives a corrected range, and tells readers to use segment totals, not individual probabilities.
 - Growth was deliberately not added to the revenue forecast: in the backtest, adding it made errors larger.
 
 ## Data

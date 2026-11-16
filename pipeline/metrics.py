@@ -59,6 +59,7 @@ def customers_rfm(con, snapshot=SNAPSHOT):
         SELECT s.customer_id, min(ts) AS first_ts, max(ts) AS last_ts, count(*) AS orders, sum(amt) AS gross,
                coalesce(any_value(r.ret), 0) AS returns
         FROM s LEFT JOIN r USING (customer_id) GROUP BY s.customer_id""", [snapshot, snapshot]).df()
+    df = df.sort_values("customer_id").reset_index(drop=True)  # thu tu co dinh de xep hang (rank first) lap lai duoc
     df["net"] = df["gross"] - df["returns"]
     df["recency_days"] = (snapshot - df["last_ts"]).dt.days
     df["tenure_days"] = (df["last_ts"] - df["first_ts"]).dt.days

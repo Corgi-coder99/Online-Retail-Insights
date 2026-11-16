@@ -37,11 +37,11 @@
   {
    "id": "concentration",
    "area": "Customers",
-   "headline": "The top 10% of customers account for 63.2% of net revenue; the 1,286 'Champions' alone for 69.1%.",
+   "headline": "The top 10% of customers account for 63.2% of net revenue; the 1,281 'Champions' alone for 69.1%.",
    "evidence": {
     "top10_share": 0.631530475460047,
-    "champions": 1286,
-    "champions_share": 0.6913694675232736,
+    "champions": 1281,
+    "champions_share": 0.691012092308495,
     "customers_with_id": 5852
    },
    "confidence": "high",
@@ -54,7 +54,7 @@
    "area": "Data quality",
    "headline": "13.1% of sales revenue (GBP 2.58M) has no customer id, so customer metrics cover only 86.9% of revenue.",
    "evidence": {
-    "sales_without_customer_id": 2576013.4600000703,
+    "sales_without_customer_id": 2576013.4600000707,
     "total_sales": 19700954.43999741
    },
    "confidence": "high",
@@ -67,9 +67,9 @@
    "area": "Operations",
    "headline": "Cancellations and returns equal 2.4% of gross sales (GBP 0.47M); among products with over GBP 20K sales and 100 orders, the highest return rates are Fairy Cake Flannel Assorted Colour (26%), Feltcraft Doll Molly (18%), Tea Time Party Bunting (17%).",
    "evidence": {
-    "returns": 474003.13999999885,
+    "returns": 474003.13999999873,
     "gross_sales": 19455301.239997257,
-    "rate": 0.0243637008830024,
+    "rate": 0.024363700883002395,
     "worst_products": [
      {
       "description": "FAIRY CAKE FLANNEL ASSORTED COLOUR",
@@ -192,45 +192,45 @@
   {
    "id": "winback",
    "area": "Customers",
-   "headline": "834 'At risk' customers (3+ orders but silent for a long time) bought GBP 1.45M in total; they are the clearest win-back list.",
+   "headline": "830 'At risk' customers (3+ orders but silent for a long time) bought GBP 1.44M in total; they are the clearest win-back list.",
    "evidence": {
-    "at_risk_customers": 834,
-    "at_risk_net": 1449561.6,
+    "at_risk_customers": 830,
+    "at_risk_net": 1443964.48,
     "segments": [
      {
       "segment": "At risk",
-      "customers": 834,
-      "net": 1449562.0
+      "customers": 830,
+      "net": 1443964.0
      },
      {
       "segment": "Champions",
-      "customers": 1286,
-      "net": 11347680.0
+      "customers": 1281,
+      "net": 11341815.0
      },
      {
       "segment": "Hibernating",
-      "customers": 1507,
-      "net": 602474.0
+      "customers": 1511,
+      "net": 608685.0
      },
      {
       "segment": "Loyal",
-      "customers": 702,
-      "net": 1832594.0
+      "customers": 700,
+      "net": 1805431.0
      },
      {
       "segment": "Needs attention",
-      "customers": 772,
-      "net": 551546.0
+      "customers": 767,
+      "net": 571055.0
      },
      {
       "segment": "New",
-      "customers": 46,
-      "net": 15173.0
+      "customers": 52,
+      "net": 18021.0
      },
      {
       "segment": "Promising",
-      "customers": 705,
-      "net": 614309.0
+      "customers": 711,
+      "net": 624366.0
      }
     ]
    },
@@ -292,89 +292,89 @@
   {
    "id": "customer_forecast",
    "area": "Forecast",
-   "headline": "About 2,865 of 5,852 known customers (49%) are expected to buy again within 180 days of 10 Dec 2011, worth roughly GBP 3.21M to GBP 4.25M.",
+   "headline": "About 2,899 of 5,852 known customers (50%) are expected to buy again within 180 days of 10 Dec 2011, worth roughly GBP 3.23M to GBP 4.40M.",
    "evidence": {
-    "expected_buyers": 2865.281357701251,
+    "expected_buyers": 2898.507189067541,
     "customers": 5852,
-    "expected_spend_raw": 4246098.693545485,
-    "expected_spend_calibrated": 3211593.923139047,
-    "auc_model": 0.7527900961918879,
+    "expected_spend_raw": 4397207.193401871,
+    "expected_spend_calibrated": 3226685.011358545,
+    "auc_model": 0.7562541785832151,
     "auc_baseline": 0.7787782593605185,
-    "top_decile_capture_model": 0.6265953026704331,
+    "top_decile_capture_model": 0.6245787937742618,
     "top_decile_capture_baseline": 0.6128800779306014,
-    "backtest_total_ratio": 1.3221156831045757,
+    "backtest_total_ratio": 1.3627630766321674,
     "segments": [
      {
       "segment": "At risk",
-      "customers": 837,
-      "expected_buyers": 259.027,
-      "expected_spend": 132231.7,
-      "hist_net_gross": 1610969.92,
-      "avg_p_buy": 0.309
+      "customers": 830,
+      "expected_buyers": 244.787,
+      "expected_spend": 116186.927,
+      "hist_net_gross": 1604314.52,
+      "avg_p_buy": 0.295
      },
      {
       "segment": "Champions",
-      "customers": 1282,
-      "expected_buyers": 1127.232,
-      "expected_spend": 3186502.294,
-      "hist_net_gross": 11660371.95,
-      "avg_p_buy": 0.879
+      "customers": 1281,
+      "expected_buyers": 1150.978,
+      "expected_spend": 3331037.352,
+      "hist_net_gross": 11639992.62,
+      "avg_p_buy": 0.898
      },
      {
       "segment": "Hibernating",
-      "customers": 1504,
-      "expected_buyers": 248.28,
-      "expected_spend": 95965.296,
-      "hist_net_gross": 615264.66,
-      "avg_p_buy": 0.165
+      "customers": 1511,
+      "expected_buyers": 241.608,
+      "expected_spend": 92053.563,
+      "hist_net_gross": 623849.22,
+      "avg_p_buy": 0.16
      },
      {
       "segment": "Loyal",
-      "customers": 709,
-      "expected_buyers": 472.71,
-      "expected_spend": 372442.755,
-      "hist_net_gross": 1858946.17,
-      "avg_p_buy": 0.667
+      "customers": 700,
+      "expected_buyers": 485.593,
+      "expected_spend": 379520.596,
+      "hist_net_gross": 1840269.46,
+      "avg_p_buy": 0.694
      },
      {
       "segment": "Needs attention",
-      "customers": 764,
-      "expected_buyers": 334.46,
-      "expected_spend": 178442.518,
-      "hist_net_gross": 563451.82,
-      "avg_p_buy": 0.438
+      "customers": 767,
+      "expected_buyers": 342.483,
+      "expected_spend": 186123.971,
+      "hist_net_gross": 581681.4,
+      "avg_p_buy": 0.447
      },
      {
       "segment": "New",
-      "customers": 48,
-      "expected_buyers": 23.109,
-      "expected_spend": 10878.62,
-      "hist_net_gross": 16006.09,
-      "avg_p_buy": 0.481
+      "customers": 52,
+      "expected_buyers": 25.941,
+      "expected_spend": 13109.979,
+      "hist_net_gross": 18341.0,
+      "avg_p_buy": 0.499
      },
      {
       "segment": "Promising",
-      "customers": 708,
-      "expected_buyers": 400.463,
-      "expected_spend": 269635.51,
-      "hist_net_gross": 799930.37,
-      "avg_p_buy": 0.566
+      "customers": 711,
+      "expected_buyers": 407.117,
+      "expected_spend": 279174.805,
+      "hist_net_gross": 816492.76,
+      "avg_p_buy": 0.573
      }
     ]
    },
    "confidence": "low",
-   "why": "On the 2011-06-09 backtest the model ranked customers about as well as 'recent activity' (AUC 0.75 vs 0.78; top decile captured 63% vs 61% of spend) and over-predicted the total by 32%; the lower figure applies that correction.",
+   "why": "On the 2011-06-09 backtest the model ranked customers about as well as 'recent activity' (AUC 0.76 vs 0.78; top decile captured 62% vs 61% of spend) and over-predicted the total by 36%; the lower figure applies that correction.",
    "caveat": "Do not use individual probabilities for decisions; use segment totals, and prefer the time-series forecast for company-level revenue.",
    "action": "Use as a sizing range for the retention budget, then replace it with a measured holdout test."
   },
   {
    "id": "value_at_risk",
    "area": "Forecast",
-   "headline": "69 of the 1,171 highest-spending customers (top 20% by lifetime sales) have a low modelled chance (<35%) of buying again; together they have bought GBP 929K.",
+   "headline": "74 of the 1,171 highest-spending customers (top 20% by lifetime sales) have a low modelled chance (<35%) of buying again; together they have bought GBP 943K.",
    "evidence": {
-    "customers": 69,
+    "customers": 74,
     "of_high_value": 1171,
-    "hist_gross": 929445.4700000002
+    "hist_gross": 943423.7000000001
    },
    "confidence": "low",
    "why": "Same model as above, so same limits.",

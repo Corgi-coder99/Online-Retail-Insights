@@ -44,7 +44,7 @@ Among the 300 products on the most invoices: pairs bought together in at least 1
 - Features at a cut-off date: recency, orders, tenure, spend to date, average order value, orders and spend in the last 90/180 days, return ratio, distinct products, average gap between orders, UK flag.
 - Models: gradient boosting classifier for "buys again", gradient boosting regressor for spend given a purchase; expected spend = probability x spend.
 - Validation without leakage: train on cut-offs in 2010 (targets known), test on 2011-06-09 (target window 2011-06-10 to 2011-12-09 fully observed).
-- Result on the test cut-off: AUC 0.75 (baseline "recent orders then recency": 0.78), Spearman of spend 0.55 (baseline 0.56), top decile captured 63% of spend (baseline 61%), total over-predicted by 32%.
+- Result on the test cut-off: AUC 0.76 (baseline "recent orders then recency": 0.78), Spearman of spend 0.54 (baseline 0.56), top decile captured 62% of spend (baseline 61%), total over-predicted by 36%.
 - Final prediction: model retrained on all cut-offs with known targets, applied to 10 Dec 2011. Only segment-level aggregates are reported.
 
 ## 8. Insight engine

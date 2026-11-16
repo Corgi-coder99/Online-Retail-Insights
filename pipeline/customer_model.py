@@ -8,7 +8,10 @@ Khong xuat du lieu tung khach hang, chi so lieu tong hop.
 Chay: python -I pipeline/customer_model.py  ->  outputs/customer_model.json
 """
 import json
+import os
 import warnings
+
+os.environ.setdefault("OMP_NUM_THREADS", "1")  # mot luong de ket qua lap lai duoc (cong don so thuc da luong co the lech nhe)
 from pathlib import Path
 
 import duckdb
@@ -43,6 +46,7 @@ def snapshot(con, cutoff, with_target):
                max(country = 'United Kingdom') is_uk
         FROM s LEFT JOIN r USING (customer_id) LEFT JOIN p USING (customer_id) GROUP BY s.customer_id""",
                     [cut] * 3 + [cut] * 3).df()
+    f = f.sort_values("customer_id").reset_index(drop=True)  # thu tu co dinh de ket qua lap lai duoc
     f["recency_days"] = (cut - f["last_ts"]).dt.days
     f["tenure_days"] = (f["last_ts"] - f["first_ts"]).dt.days
     f["aov"] = f["gross_to_date"] / f["orders"]
@@ -50,6 +54,8 @@ def snapshot(con, cutoff, with_target):
     f["avg_gap_days"] = np.where(f["orders"] > 1, f["tenure_days"] / (f["orders"] - 1), np.nan)
     f["is_uk"] = f["is_uk"].astype(int)
     f["cutoff"] = cut
+    for col in ("gross_to_date", "aov", "spend_180d", "return_ratio", "avg_gap_days", "ret"):
+        f[col] = f[col].astype(float).round(4)  # lam tron de sai so cong don so thuc cua DuckDB khong doi nhanh cay
     if with_target:
         t = con.execute("""SELECT customer_id, sum(line_amount) spend, count(DISTINCT invoice) n FROM clean_lines
                            WHERE line_type='sale' AND customer_id IS NOT NULL AND invoice_ts >= ? AND invoice_ts < ? GROUP BY 1""", [cut, end]).df()
@@ -73,12 +79,12 @@ def main():
     te = snapshot(con, test_cut, True)
     print(f"train: {len(tr):,} dong-khach (moc {train_cuts}); test: {len(te):,} khach (moc {test_cut})")
 
-    reg = HistGradientBoostingRegressor(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0).fit(tr[FEATS], np.log1p(tr["spend"]))
-    clf = HistGradientBoostingClassifier(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0).fit(tr[FEATS], tr["bought"])
+    reg = HistGradientBoostingRegressor(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0, early_stopping=False).fit(tr[FEATS], np.log1p(tr["spend"]))
+    clf = HistGradientBoostingClassifier(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0, early_stopping=False).fit(tr[FEATS], tr["bought"])
     te["pred_spend"] = np.expm1(reg.predict(te[FEATS])).clip(min=0)
     te["p_buy"] = clf.predict_proba(te[FEATS])[:, 1]
     # CLV mong doi = xac suat mua x chi tieu neu mua; huan luyen rieng chi tieu khi co mua de tranh trung binh bi keo ve 0
-    reg_pos = HistGradientBoostingRegressor(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0).fit(tr[tr["bought"] == 1][FEATS], np.log1p(tr[tr["bought"] == 1]["spend"]))
+    reg_pos = HistGradientBoostingRegressor(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0, early_stopping=False).fit(tr[tr["bought"] == 1][FEATS], np.log1p(tr[tr["bought"] == 1]["spend"]))
     te["exp_spend"] = te["p_buy"] * np.expm1(reg_pos.predict(te[FEATS])).clip(min=0)
 
     base_spend = te["spend_180d"].values  # co so: chi tieu 180 ngay toi = chi tieu 180 ngay vua qua
@@ -106,9 +112,9 @@ def main():
     allcuts = train_cuts + [test_cut, "2011-04-09", "2010-12-10"]  # them moc cuoi nam 2010 de mo hinh thay cung mua vu voi moc du bao 2011-12-10
     full = pd.concat([snapshot(con, c, True) for c in allcuts], ignore_index=True)
     fut = snapshot(con, final_cut, False)
-    clf2 = HistGradientBoostingClassifier(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0).fit(full[FEATS], full["bought"])
+    clf2 = HistGradientBoostingClassifier(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0, early_stopping=False).fit(full[FEATS], full["bought"])
     pos = full[full["bought"] == 1]
-    reg2 = HistGradientBoostingRegressor(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0).fit(pos[FEATS], np.log1p(pos["spend"]))
+    reg2 = HistGradientBoostingRegressor(max_depth=4, learning_rate=0.05, max_iter=250, random_state=0, early_stopping=False).fit(pos[FEATS], np.log1p(pos["spend"]))
     fut["p_buy"] = clf2.predict_proba(fut[FEATS])[:, 1]
     fut["exp_spend"] = fut["p_buy"] * np.expm1(reg2.predict(fut[FEATS])).clip(min=0)
     # phan khuc RFM hien tai de gop (dung dinh nghia metrics.py)
