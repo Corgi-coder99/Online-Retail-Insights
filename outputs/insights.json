@@ -1,0 +1,385 @@
+{
+ "generated_from": "UCI Online Retail II, 2009-12-01 to 2011-12-09 (GBP)",
+ "n_insights": 13,
+ "insights": [
+  {
+   "id": "growth",
+   "area": "Revenue",
+   "headline": "Net revenue grew 2.1% year on year (weeks 7 Dec 2009 - 5 Dec 2010 vs 6 Dec 2010 - 4 Dec 2011).",
+   "evidence": {
+    "year1_net": 9111349.020000096,
+    "year2_net": 9303287.85000008,
+    "growth": 0.021065906879284668,
+    "ci95": [
+     -0.04342914979200719,
+     0.08258542131265205
+    ]
+   },
+   "confidence": "medium",
+   "why": "95% bootstrap interval -4.3% to 8.3% (resampling weekly pairs); only two years of data, no external drivers modelled.",
+   "caveat": "The weekly series excludes 4 lines above GBP 50,000 (including one 80,995-unit order of GBP 168K and its cancellation). Prices and VAT treatment are not documented in the source.",
+   "action": "Use growth as context, not as a promise: the next-quarter forecast below deliberately does not extrapolate it because the backtest showed no gain from doing so."
+  },
+  {
+   "id": "seasonality",
+   "area": "Revenue",
+   "headline": "September to November delivered 37.5% of the last 12 months' net revenue (25% would be flat).",
+   "evidence": {
+    "sep_nov_share": 0.3752234910419563,
+    "peak_month": "2011-11",
+    "peak_month_net": 1432734.9900000338
+   },
+   "confidence": "high",
+   "why": "Same pattern in both years of data (see monthly table); effect is large relative to noise.",
+   "caveat": "The business closes for about two weeks over Christmas, so December is short.",
+   "action": "Plan stock, staffing and marketing around a Sep-Nov peak; judge a quarter against the same quarter last year, not the previous one."
+  },
+  {
+   "id": "concentration",
+   "area": "Customers",
+   "headline": "The top 10% of customers account for 63.2% of net revenue; the 1,286 'Champions' alone for 69.1%.",
+   "evidence": {
+    "top10_share": 0.631530475460047,
+    "champions": 1286,
+    "champions_share": 0.6913694675232736,
+    "customers_with_id": 5852
+   },
+   "confidence": "high",
+   "why": "Computed on every customer with an id; no sampling.",
+   "caveat": "Many of these accounts look like trade/wholesale buyers (large baskets), so this is B2B-style concentration, not consumer behaviour.",
+   "action": "Protect these accounts first: named account management, stock priority, early notice of new lines. Losing a handful would move revenue visibly."
+  },
+  {
+   "id": "tracking_gap",
+   "area": "Data quality",
+   "headline": "13.1% of sales revenue (GBP 2.58M) has no customer id, so customer metrics cover only 86.9% of revenue.",
+   "evidence": {
+    "sales_without_customer_id": 2576013.4600000703,
+    "total_sales": 19700954.43999741
+   },
+   "confidence": "high",
+   "why": "Direct count from the source.",
+   "caveat": "Missing ids are probably guest or marketplace orders; they are included in all revenue and product figures.",
+   "action": "Capture a customer or email key at checkout for every order; until then treat RFM, cohort and LTV numbers as a lower bound on customer value."
+  },
+  {
+   "id": "returns",
+   "area": "Operations",
+   "headline": "Cancellations and returns equal 2.4% of gross sales (GBP 0.47M); among products with over GBP 20K sales and 100 orders, the highest return rates are Fairy Cake Flannel Assorted Colour (26%), Feltcraft Doll Molly (18%), Tea Time Party Bunting (17%).",
+   "evidence": {
+    "returns": 474003.13999999885,
+    "gross_sales": 19455301.239997257,
+    "rate": 0.0243637008830024,
+    "worst_products": [
+     {
+      "description": "FAIRY CAKE FLANNEL ASSORTED COLOUR",
+      "rate": 0.2600441035919384
+     },
+     {
+      "description": "FELTCRAFT DOLL MOLLY",
+      "rate": 0.17644358316961564
+     },
+     {
+      "description": "TEA TIME PARTY BUNTING",
+      "rate": 0.17380154151381702
+     }
+    ]
+   },
+   "confidence": "medium",
+   "why": "Cancellation invoices are not linked to the original sale, so product return rates are approximate.",
+   "caveat": "Excludes the one-off 80,995-unit order of GBP 168K (placed Jan 2011, cancelled Dec 2011).",
+   "action": "Review the highest-return products for quality, description or packaging problems before reordering."
+  },
+  {
+   "id": "products",
+   "area": "Products",
+   "headline": "The top 20% of products (979 of 4,894) generate 78.4% of gross sales; the best seller is 'Regency Cakestand 3 Tier' (GBP 331K).",
+   "evidence": {
+    "products_sold": 4894,
+    "top20_share": 0.7839805419533044,
+    "top_product": "REGENCY CAKESTAND 3 TIER",
+    "christmas_named_share": 0.04390779764662233
+   },
+   "confidence": "high",
+   "why": "Complete product table.",
+   "caveat": "A long tail is normal for gift ware; the value is in range management, not in cutting the tail blindly.",
+   "action": "Review the bottom of the tail each season for products with few buyers and low sales, and keep depth on the proven top lines."
+  },
+  {
+   "id": "geography",
+   "area": "Markets",
+   "headline": "The UK is 85.6% of gross sales; the fastest-growing export markets with over GBP 30K in year 1 are France (+46%), Spain (+32%), Switzerland (+30%).",
+   "evidence": {
+    "uk_share": 0.8556098635391587,
+    "fast": [
+     {
+      "country": "France",
+      "y1": 126705.64,
+      "y2": 184582.74,
+      "growth": 0.457
+     },
+     {
+      "country": "Spain",
+      "y1": 42092.96,
+      "y2": 55725.11,
+      "growth": 0.324
+     },
+     {
+      "country": "Switzerland",
+      "y1": 40958.99,
+      "y2": 53087.9,
+      "growth": 0.296
+     }
+    ]
+   },
+   "confidence": "low",
+   "why": "Year-1 vs year-2 comparison in single markets rests on a few large accounts.",
+   "caveat": "Growth rates in small markets are volatile; a single customer can explain them.",
+   "action": "Check whether growth comes from one account before investing in a market."
+  },
+  {
+   "id": "bundles",
+   "area": "Products",
+   "headline": "Strong bundle candidates (items that are bought together far more than chance): Pink Polkadot Cup + Blue Polkadot Cup (lift 36, together in 521 orders); Wooden Heart Christmas Scandinavian + Wooden Star Christmas Scandinavian (lift 34, together in 552 orders); Gardeners Kneeling Pad Cup Of Tea + Gardeners Kneeling Pad Keep Calm (lift 31, together in 546 orders).",
+   "evidence": {
+    "pairs": [
+     {
+      "desc_a": "PINK  POLKADOT CUP",
+      "desc_b": "BLUE POLKADOT CUP",
+      "together": 521,
+      "lift": 35.649,
+      "confidence_a_to_b": 0.694,
+      "confidence_b_to_a": 0.678
+     },
+     {
+      "desc_a": "WOODEN HEART CHRISTMAS SCANDINAVIAN",
+      "desc_b": "WOODEN STAR CHRISTMAS SCANDINAVIAN",
+      "together": 552,
+      "lift": 34.137,
+      "confidence_a_to_b": 0.663,
+      "confidence_b_to_a": 0.719
+     },
+     {
+      "desc_a": "GARDENERS KNEELING PAD CUP OF TEA",
+      "desc_b": "GARDENERS KNEELING PAD KEEP CALM",
+      "together": 546,
+      "lift": 31.176,
+      "confidence_a_to_b": 0.72,
+      "confidence_b_to_a": 0.598
+     }
+    ]
+   },
+   "confidence": "high",
+   "why": "Pair counts of at least 300 orders each; lift above 30 means colour or theme variants of one range.",
+   "caveat": "High lift here mostly shows range variants bought as a set by trade buyers, which is not the same as cross-selling unrelated items.",
+   "action": "Offer these as ready-made sets or multi-buy prices and check basket size before and after."
+  },
+  {
+   "id": "retention",
+   "area": "Customers",
+   "headline": "Month-1 retention averages 21.3% across cohorts; customers who started between Dec 2009 and Nov 2010 spent a median of GBP 1,373 in their first 12 months, and 19.6% were still buying in month 12.",
+   "evidence": {
+    "month1_retention_mean": 0.21287918756578864,
+    "ltv12_median": 1372.5156460674157,
+    "month12_retention_mean": 0.1956923677643625,
+    "cohorts": 12
+   },
+   "confidence": "medium",
+   "why": "12 full-year cohorts of 163 to 951 customers each; the later the cohort, the fewer the customers.",
+   "caveat": "Customers without an id are excluded; first-order month includes some existing customers from before the dataset starts (Dec 2009 cohort).",
+   "action": "Treat 12-month spend per new customer as the ceiling for acquisition cost; aim retention efforts at the first 3 months where most customers drop."
+  },
+  {
+   "id": "winback",
+   "area": "Customers",
+   "headline": "834 'At risk' customers (3+ orders but silent for a long time) bought GBP 1.45M in total; they are the clearest win-back list.",
+   "evidence": {
+    "at_risk_customers": 834,
+    "at_risk_net": 1449561.6,
+    "segments": [
+     {
+      "segment": "At risk",
+      "customers": 834,
+      "net": 1449562.0
+     },
+     {
+      "segment": "Champions",
+      "customers": 1286,
+      "net": 11347680.0
+     },
+     {
+      "segment": "Hibernating",
+      "customers": 1507,
+      "net": 602474.0
+     },
+     {
+      "segment": "Loyal",
+      "customers": 702,
+      "net": 1832594.0
+     },
+     {
+      "segment": "Needs attention",
+      "customers": 772,
+      "net": 551546.0
+     },
+     {
+      "segment": "New",
+      "customers": 46,
+      "net": 15173.0
+     },
+     {
+      "segment": "Promising",
+      "customers": 705,
+      "net": 614309.0
+     }
+    ]
+   },
+   "confidence": "medium",
+   "why": "Segments come from quintile scores; the At-risk rule is recency 1-2 and frequency 3+.",
+   "caveat": "Quintile rules are a judgement call; no test has yet shown that contacting them lifts sales.",
+   "action": "Run a holdout test: contact half of the list with a personal offer, compare orders over 90 days with the other half."
+  },
+  {
+   "id": "forecast_13w",
+   "area": "Forecast",
+   "headline": "Expect about GBP 1.77M of net revenue in the 13 weeks from 5 Dec 2011 (80% range GBP 1.38M to GBP 2.42M).",
+   "evidence": {
+    "point": 1769806.7500000077,
+    "lo": 1375608.02401624,
+    "hi": 2418122.3682412137,
+    "same_period_last_year": 1769806.7500000077,
+    "model": "seasonal_naive",
+    "backtest_wape": 0.1880688452720293,
+    "backtest_coverage_80": 0.7948717948717948,
+    "models": [
+     {
+      "model": "ensemble",
+      "origins": 9,
+      "wape": 0.18657774391969686,
+      "bias": -0.003961032274878984
+     },
+     {
+      "model": "seasonal_naive",
+      "origins": 9,
+      "wape": 0.1880688452720293,
+      "bias": -0.017990670300719214
+     },
+     {
+      "model": "regression_fourier",
+      "origins": 9,
+      "wape": 0.2040199879081778,
+      "bias": 0.010068605750961135
+     },
+     {
+      "model": "seasonal_naive_x_growth",
+      "origins": 9,
+      "wape": 0.21133129527306205,
+      "bias": 0.048512644962765084
+     },
+     {
+      "model": "naive_last_value",
+      "origins": 9,
+      "wape": 0.32719184765418385,
+      "bias": -0.18376214013342296
+     }
+    ]
+   },
+   "confidence": "medium",
+   "why": "Chosen model: seasonal_naive (same weeks last year). Backtest over 9 rolling origins: weighted error 18.8%; the 80% range covered 79% of backtest weeks. Regression and ensemble models were not clearly better (needed 2 points; got 0.1), so the simpler method was kept.",
+   "caveat": "Two years of history: one Christmas season cannot prove a trend. The year-over-year growth is not added because adding it made the backtest worse.",
+   "action": "Use the range for planning cash and stock; re-run weekly and compare with actuals to see if the range holds."
+  },
+  {
+   "id": "customer_forecast",
+   "area": "Forecast",
+   "headline": "About 2,865 of 5,852 known customers (49%) are expected to buy again within 180 days of 10 Dec 2011, worth roughly GBP 3.21M to GBP 4.25M.",
+   "evidence": {
+    "expected_buyers": 2865.281357701251,
+    "customers": 5852,
+    "expected_spend_raw": 4246098.693545485,
+    "expected_spend_calibrated": 3211593.923139047,
+    "auc_model": 0.7527900961918879,
+    "auc_baseline": 0.7787782593605185,
+    "top_decile_capture_model": 0.6265953026704331,
+    "top_decile_capture_baseline": 0.6128800779306014,
+    "backtest_total_ratio": 1.3221156831045757,
+    "segments": [
+     {
+      "segment": "At risk",
+      "customers": 837,
+      "expected_buyers": 259.027,
+      "expected_spend": 132231.7,
+      "hist_net_gross": 1610969.92,
+      "avg_p_buy": 0.309
+     },
+     {
+      "segment": "Champions",
+      "customers": 1282,
+      "expected_buyers": 1127.232,
+      "expected_spend": 3186502.294,
+      "hist_net_gross": 11660371.95,
+      "avg_p_buy": 0.879
+     },
+     {
+      "segment": "Hibernating",
+      "customers": 1504,
+      "expected_buyers": 248.28,
+      "expected_spend": 95965.296,
+      "hist_net_gross": 615264.66,
+      "avg_p_buy": 0.165
+     },
+     {
+      "segment": "Loyal",
+      "customers": 709,
+      "expected_buyers": 472.71,
+      "expected_spend": 372442.755,
+      "hist_net_gross": 1858946.17,
+      "avg_p_buy": 0.667
+     },
+     {
+      "segment": "Needs attention",
+      "customers": 764,
+      "expected_buyers": 334.46,
+      "expected_spend": 178442.518,
+      "hist_net_gross": 563451.82,
+      "avg_p_buy": 0.438
+     },
+     {
+      "segment": "New",
+      "customers": 48,
+      "expected_buyers": 23.109,
+      "expected_spend": 10878.62,
+      "hist_net_gross": 16006.09,
+      "avg_p_buy": 0.481
+     },
+     {
+      "segment": "Promising",
+      "customers": 708,
+      "expected_buyers": 400.463,
+      "expected_spend": 269635.51,
+      "hist_net_gross": 799930.37,
+      "avg_p_buy": 0.566
+     }
+    ]
+   },
+   "confidence": "low",
+   "why": "On the 2011-06-09 backtest the model ranked customers about as well as 'recent activity' (AUC 0.75 vs 0.78; top decile captured 63% vs 61% of spend) and over-predicted the total by 32%; the lower figure applies that correction.",
+   "caveat": "Do not use individual probabilities for decisions; use segment totals, and prefer the time-series forecast for company-level revenue.",
+   "action": "Use as a sizing range for the retention budget, then replace it with a measured holdout test."
+  },
+  {
+   "id": "value_at_risk",
+   "area": "Forecast",
+   "headline": "69 of the 1,171 highest-spending customers (top 20% by lifetime sales) have a low modelled chance (<35%) of buying again; together they have bought GBP 929K.",
+   "evidence": {
+    "customers": 69,
+    "of_high_value": 1171,
+    "hist_gross": 929445.4700000002
+   },
+   "confidence": "low",
+   "why": "Same model as above, so same limits.",
+   "caveat": "A small group; verify account by account before acting.",
+   "action": "Have account managers call these customers personally; the cost is small compared with the value."
+  }
+ ]
+}

@@ -1,0 +1,154 @@
+{
+ "cutoffs": {
+  "train": [
+   "2010-04-09",
+   "2010-06-09"
+  ],
+  "test": "2011-06-09",
+  "final": "2011-12-10"
+ },
+ "horizon_days": 180,
+ "n_train": 4964,
+ "n_test": 4941,
+ "test_actual_repeat_rate": 0.5166970248937462,
+ "auc_model": 0.7527900961918879,
+ "auc_baseline": 0.7787782593605185,
+ "spearman_spend_model": 0.5457415599745472,
+ "spearman_spend_baseline": 0.5644385666321026,
+ "total_actual": 4259430.75,
+ "total_pred_model": 5631460.1956728855,
+ "total_pred_baseline": 3095552.87,
+ "top_decile_capture_model": 0.6265953026704331,
+ "top_decile_capture_baseline": 0.6128800779306014,
+ "calibration_deciles": [
+  {
+   "bin": 0,
+   "n": 495,
+   "predicted": 54520.0,
+   "actual": 33424.0
+  },
+  {
+   "bin": 1,
+   "n": 494,
+   "predicted": 97523.0,
+   "actual": 42631.0
+  },
+  {
+   "bin": 2,
+   "n": 494,
+   "predicted": 149283.0,
+   "actual": 98144.0
+  },
+  {
+   "bin": 3,
+   "n": 494,
+   "predicted": 195922.0,
+   "actual": 86477.0
+  },
+  {
+   "bin": 4,
+   "n": 494,
+   "predicted": 244410.0,
+   "actual": 117181.0
+  },
+  {
+   "bin": 5,
+   "n": 494,
+   "predicted": 303326.0,
+   "actual": 160572.0
+  },
+  {
+   "bin": 6,
+   "n": 494,
+   "predicted": 378383.0,
+   "actual": 238354.0
+  },
+  {
+   "bin": 7,
+   "n": 494,
+   "predicted": 480771.0,
+   "actual": 331862.0
+  },
+  {
+   "bin": 8,
+   "n": 494,
+   "predicted": 669741.0,
+   "actual": 481845.0
+  },
+  {
+   "bin": 9,
+   "n": 494,
+   "predicted": 3057581.0,
+   "actual": 2668939.0
+  }
+ ],
+ "future": {
+  "snapshot": "2011-12-10",
+  "customers": 5852,
+  "expected_buyers": 2865.281357701251,
+  "expected_spend_180d": 4246098.693545485,
+  "segments": [
+   {
+    "segment": "At risk",
+    "customers": 837,
+    "expected_buyers": 259.027,
+    "expected_spend": 132231.7,
+    "hist_net_gross": 1610969.92,
+    "avg_p_buy": 0.309
+   },
+   {
+    "segment": "Champions",
+    "customers": 1282,
+    "expected_buyers": 1127.232,
+    "expected_spend": 3186502.294,
+    "hist_net_gross": 11660371.95,
+    "avg_p_buy": 0.879
+   },
+   {
+    "segment": "Hibernating",
+    "customers": 1504,
+    "expected_buyers": 248.28,
+    "expected_spend": 95965.296,
+    "hist_net_gross": 615264.66,
+    "avg_p_buy": 0.165
+   },
+   {
+    "segment": "Loyal",
+    "customers": 709,
+    "expected_buyers": 472.71,
+    "expected_spend": 372442.755,
+    "hist_net_gross": 1858946.17,
+    "avg_p_buy": 0.667
+   },
+   {
+    "segment": "Needs attention",
+    "customers": 764,
+    "expected_buyers": 334.46,
+    "expected_spend": 178442.518,
+    "hist_net_gross": 563451.82,
+    "avg_p_buy": 0.438
+   },
+   {
+    "segment": "New",
+    "customers": 48,
+    "expected_buyers": 23.109,
+    "expected_spend": 10878.62,
+    "hist_net_gross": 16006.09,
+    "avg_p_buy": 0.481
+   },
+   {
+    "segment": "Promising",
+    "customers": 708,
+    "expected_buyers": 400.463,
+    "expected_spend": 269635.51,
+    "hist_net_gross": 799930.37,
+    "avg_p_buy": 0.566
+   }
+  ],
+  "high_value_low_prob": {
+   "customers": 69,
+   "of_high_value": 1171,
+   "hist_gross": 929445.4700000002
+  }
+ }
+}
