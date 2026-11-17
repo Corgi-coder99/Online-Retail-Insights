@@ -173,19 +173,36 @@ details{margin-top:8px}summary{cursor:pointer;font-size:12px;color:var(--ink2)}
 .insight .m{color:var(--ink2);font-size:12.5px}.insight .m b{color:var(--ink)}
 footer.foot-note{margin-top:22px;font-size:12px;color:var(--ink2)}
 
-/* small screens: navigation becomes a horizontal strip */
+/* small screens: navigation becomes a sticky 4-column strip (no horizontal scrolling), strip cells fill the row, controls are touch friendly */
 @media (max-width:860px){
   .shell{grid-template-columns:1fr}
-  .side{position:static;height:auto;display:flex;gap:4px;overflow-x:auto;padding:8px;border-right:none;border-bottom:1px solid var(--line)}
+  .side{position:sticky;top:48px;z-index:20;height:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:4px;overflow:visible;padding:6px;border-right:none;border-bottom:1px solid var(--line)}
   .side h6,.side .foot{display:none}
-  .nav{width:auto;white-space:nowrap}
+  .nav{flex-direction:column;justify-content:center;gap:3px;padding:6px 2px;font-size:11.5px;line-height:1.2;text-align:center;white-space:normal;min-height:48px}
+  .nav svg{width:18px;height:18px}
   .main{padding:14px 12px 40px}
   .page-head h1{width:100%}
+  .page-head{gap:8px}
+  .btn{min-height:38px}
+  .pop{max-width:calc(100vw - 24px)}
+  .pop select{font-size:16px;min-height:38px}
+  .pop .item{min-height:40px}
   .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpi:nth-child(odd){border-left:none}
   .kpi{border-top:1px solid var(--line)}
   .kpi:nth-child(-n+2){border-top:none}
+  .kpi:last-child:nth-child(odd){grid-column:span 2}
+  .card{padding:14px 12px}
+  .grid{gap:10px}
+  .seg button{min-height:34px}
+  .topbar .pill-top{display:none}
 }
+@media (max-width:420px){
+  .kpi .v{font-size:20px}
+  .topbar{padding:0 12px}
+}
+/* touch: charts keep vertical page scroll while a horizontal drag moves the crosshair */
+svg rect[fill="transparent"]{touch-action:pan-y}
 @media print{.topbar,.side,.page-head .ctrl,.switch{display:none}.shell{display:block}body{background:#fff}}
 
 .page[hidden]{display:none}
@@ -210,7 +227,7 @@ footer.foot-note{margin-top:22px;font-size:12px;color:var(--ink2)}
 .used{margin-left:6px}
 .tight th,.tight td{padding:7px 10px}
 .num{font-variant-numeric:tabular-nums}
-@media (max-width:860px){.kpi:last-child:nth-child(odd){grid-column:span 2}.shell{grid-template-columns:minmax(0,1fr)}.main{min-width:0}.filters .count{margin-left:0;width:100%}.kpi .v{font-size:19px}}
+@media (max-width:860px){#nav{display:contents}#rfmt th:nth-child(n+5),#rfmt td:nth-child(n+5){display:none}.kpi:last-child:nth-child(odd){grid-column:span 2}.shell{grid-template-columns:minmax(0,1fr)}.main{min-width:0}.filters .count{margin-left:0;width:100%}.kpi .v{font-size:19px}}
 </style>
 </head>
 <body>
@@ -320,15 +337,15 @@ function forecastChart(){
  $("#fct").innerHTML=`<details><summary>View as table</summary><div class="scroll"><table><thead><tr><th>Week</th><th>Forecast</th><th>Low (80%)</th><th>High (80%)</th><th>Same week last year</th></tr></thead><tbody>${F.map((f,i)=>`<tr><td>${f.week}</td><td class="num">${gbp(f.point)}</td><td class="num">${gbp(f.lo)}</td><td class="num">${gbp(f.hi)}</td><td class="num">${gbp(ly[i])}</td></tr>`).join("")}</tbody></table></div></details>`;
 }
 function monthly(){const el=$("#mo"),M=D.monthly;const W=width(el),Ht=250,m={l:W<500?46:54,r:8,t:10,b:26},iw=W-m.l-m.r,ih=Ht-m.t-m.b;const max=niceMax(Math.max(...M.map(r=>r.net)));const band=iw/M.length,bw=Math.min(26,band*.7),y=v=>m.t+ih*(1-v/max);
- const step=band<26?3:2;
+ const step=Math.max(1,Math.ceil(50/band));
  const svg=S("svg",{viewBox:`0 0 ${W} ${Ht}`,width:W,height:Ht,role:"img","aria-label":"Net revenue by month"});for(const t of ticks(max)){svg.append(S("line",{x1:m.l,x2:W-m.r,y1:y(t),y2:y(t),class:"grid"}));svg.append(S("text",{x:m.l-6,y:y(t)+3,"text-anchor":"end"},gbpC(t)))}
  M.forEach((r,i)=>{const cx=m.l+band*i+band/2;const rc=S("rect",{x:cx-bw/2,y:y(r.net),width:bw,height:Math.max(1,y(0)-y(r.net)),rx:3,fill:r.partial?"var(--seq3)":"var(--s1)"});rc.addEventListener("pointermove",e=>showTip(e,`<b>${ML(r.month)}</b>`+trow("","Net revenue",gbp(r.net))+trow("","Orders",nf0.format(r.orders))+(r.partial?"<div>partial month</div>":"")));rc.addEventListener("pointerleave",hideTip);svg.append(rc);if(i%step===0)svg.append(S("text",{x:cx,y:Ht-8,"text-anchor":"middle"},ML(r.month)))});
  svg.append(S("line",{x1:m.l,x2:W-m.r,y1:y(0),y2:y(0),class:"axis"}));el.replaceChildren(svg)}
 function hbars(el,items,fmt){const W=width(el),lw=W<500?92:130,m={l:lw,r:44,t:6,b:6},rowH=30,Ht=m.t+m.b+rowH*items.length,iw=W-m.l-m.r;const max=Math.max(...items.map(i=>i.v));const svg=S("svg",{viewBox:`0 0 ${W} ${Ht}`,width:W,height:Ht,role:"img","aria-label":"Share of net revenue by customer segment"});
  items.forEach((it,i)=>{const cy=m.t+rowH*i+rowH/2;svg.append(S("text",{x:m.l-8,y:cy+4,"text-anchor":"end"},it.l));const r=S("rect",{x:m.l,y:cy-9,width:Math.max(1,iw*it.v/max),height:18,rx:4,fill:"var(--s1)"});r.addEventListener("pointermove",e=>showTip(e,`<b>${it.l}</b>`+it.tip));r.addEventListener("pointerleave",hideTip);svg.append(r);svg.append(S("text",{x:m.l+iw*it.v/max+6,y:cy+4,class:"ink"},fmt(it.v)))});el.replaceChildren(svg)}
-function heat(){const el=$("#coh"),rows=D.cohorts,K=13;const W=Math.max(el.parentElement.clientWidth||600,520),lw=62,cw=Math.min(62,(W-lw-8)/K),ch=22,m={t:20};const Ht=m.t+ch*rows.length+4;const svg=S("svg",{viewBox:`0 0 ${W} ${Ht}`,width:W,height:Ht,role:"img","aria-label":"Cohort retention heatmap"});
+function heat(){const el=$("#coh"),rows=D.cohorts;const W=Math.max(el.parentElement.clientWidth||600,300),K=W<520?7:13,lw=W<520?54:62,cw=Math.min(62,(W-lw-8)/K),ch=22,m={t:20};const Ht=m.t+ch*rows.length+4;const svg=S("svg",{viewBox:`0 0 ${W} ${Ht}`,width:W,height:Ht,role:"img","aria-label":"Cohort retention heatmap"});
  for(let k=0;k<K;k++)svg.append(S("text",{x:lw+cw*k+cw/2,y:13,"text-anchor":"middle"},"M"+k));
- rows.forEach((r,i)=>{svg.append(S("text",{x:lw-8,y:m.t+ch*i+ch/2+4,"text-anchor":"end"},ML(r.cohort)));r.ret.forEach((v,k)=>{if(v==null)return;const fill=seq(v/0.5);const c=S("rect",{x:lw+cw*k+1,y:m.t+ch*i+1,width:cw-2,height:ch-2,rx:3,fill});c.addEventListener("pointermove",e=>showTip(e,`<b>${ML(r.cohort)} cohort, month ${k}</b>`+trow("","Retention",pct(v))+trow("","Customers",nf0.format(r.active[k])+" of "+nf0.format(r.size))));c.addEventListener("pointerleave",hideTip);svg.append(c);
+ rows.forEach((r,i)=>{svg.append(S("text",{x:lw-8,y:m.t+ch*i+ch/2+4,"text-anchor":"end"},ML(r.cohort)));r.ret.forEach((v,k)=>{if(v==null||k>=K)return;const fill=seq(v/0.5);const c=S("rect",{x:lw+cw*k+1,y:m.t+ch*i+1,width:cw-2,height:ch-2,rx:3,fill});c.addEventListener("pointermove",e=>showTip(e,`<b>${ML(r.cohort)} cohort, month ${k}</b>`+trow("","Retention",pct(v))+trow("","Customers",nf0.format(r.active[k])+" of "+nf0.format(r.size))));c.addEventListener("pointerleave",hideTip);svg.append(c);
   const hx=fill.startsWith("#")?fill:"#888888";const t=S("text",{x:lw+cw*k+cw/2,y:m.t+ch*i+ch/2+4,"text-anchor":"middle",style:`fill:${lum(hx)>.35?"#0b0b0b":"#fff"}`},k===0?"100%":Math.round(v*100)+"%");t.style.pointerEvents="none";svg.append(t)})});el.replaceChildren(svg)}
 
 const PAGES=[
@@ -392,4 +409,13 @@ $("#area").addEventListener("change",e=>{F.area=e.target.value;renderInsights();
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 const qt=new URLSearchParams(location.search).get("theme");if(qt==="dark"||qt==="light")document.documentElement.dataset.theme=qt;
 let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(route,150)});render();
+
+/* touch: a tap shows the tooltip of the tapped mark (pointermove does not fire on a plain tap); a tap elsewhere hides it */
+document.addEventListener("pointerdown", e => {
+  if (e.pointerType !== "touch") return;
+  const t = document.getElementById("tip");
+  if (e.target && e.target.closest && e.target.closest("svg")) {
+    e.target.dispatchEvent(new PointerEvent("pointermove", { bubbles: true, clientX: e.clientX, clientY: e.clientY, pointerType: "touch" }));
+  } else if (t) { t.style.display = "none"; }
+}, { passive: true });
 </script></body></html>
