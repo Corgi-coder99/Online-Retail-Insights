@@ -2,6 +2,8 @@
 
 A reproducible analytics pipeline on **real, anonymised transactions** of a UK online gift retailer (1 Dec 2009 to 9 Dec 2011, about 1 million order lines). It cleans the data with every rule logged, computes e-commerce metrics (RFM segments, cohort retention, product concentration, bundles, returns), turns them into **plain-language insights with evidence, confidence and a suggested action**, and produces **forecasts whose past accuracy is measured**.
 
+**Live report:** https://corgi-coder99.github.io/Online-Retail-Insights/ (single file, light and dark theme, works on phone and desktop)
+
 ![Report overview](docs/images/01-overview.png)
 
 Open `report/index.html` in a browser (single file, works offline, light and dark theme, tooltips).
