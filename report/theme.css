@@ -165,14 +165,47 @@ details{margin-top:8px}summary{cursor:pointer;font-size:12px;color:var(--ink2)}
 .insight .m{color:var(--ink2);font-size:12.5px}.insight .m b{color:var(--ink)}
 footer.foot-note{margin-top:22px;font-size:12px;color:var(--ink2)}
 
+/* ---- Admin frame (matches the real admin look): dark frame and sidebar, white rounded content panel, separate metric cards ---- */
+:root, :root[data-theme="light"]{--frame:#0e0e0e;--panel:#ffffff;--side-ink:#e6e6e6;--side-muted:#8f8f8f;--side-active:#2b2b2b;--side-hover:#1c1c1c;--chip:#f1f1f1;--card-line:#e3e3e3}
+@media (prefers-color-scheme: dark){:root:where(:not([data-theme="light"])){--frame:#000000;--panel:#151515;--chip:#262626;--card-line:#2e2e2e}}
+:root[data-theme="dark"]{--frame:#000000;--panel:#151515;--chip:#262626;--card-line:#2e2e2e}
+body{background:var(--frame)}
+.topbar{background:var(--frame)}
+.side{background:var(--frame);border-right:none;color:var(--side-ink)}
+.side h6{color:var(--side-muted)}
+.nav{color:var(--side-ink);border-radius:8px}
+.nav svg{color:var(--side-muted)}
+.nav:hover{background:var(--side-hover)}
+.nav[aria-current="page"]{background:var(--side-active);box-shadow:none;color:#fff;font-weight:600}
+.nav[aria-current="page"] svg{color:#fff}
+.side .foot{color:var(--side-muted)}
+.main{background:var(--panel);border-radius:12px;margin:0 6px 6px 0;max-width:none;min-width:0;padding:16px 24px 48px}
+.main > *{max-width:1160px;margin-left:auto;margin-right:auto}
+.page-head h1{font-size:15px;font-weight:650}
+.btn{background:var(--chip);border:1px solid transparent;box-shadow:none;font-weight:550}
+.btn:hover{background:var(--press)}
+.btn.primary{background:var(--primary);color:var(--primary-ink)}
+.card{box-shadow:none;border:1px solid var(--card-line);background:var(--surface)}
+.pop{background:var(--surface)}
+/* metric strip: separate cards, small trend line bottom-right */
+.strip,.card.strip{background:transparent;border:none;box-shadow:none;padding:0;gap:12px;overflow:visible}
+.kpi,.kpi:first-child{border:1px solid var(--card-line);border-radius:12px;background:var(--surface);padding:12px 14px 12px;min-height:92px}
+button.kpi:hover{background:var(--hover)}
+button.kpi[aria-pressed="true"]{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.kpi svg.spark{position:absolute!important;right:12px!important;top:32px!important;bottom:auto!important;width:58px!important;height:22px!important;margin:0!important}
+.kpi .v{font-size:20px;line-height:28px}
+.legend{margin:6px 0 0}
+/* the content-wide notice bar */
+.notice{display:flex;gap:10px;align-items:flex-start;background:var(--info-bg);color:var(--info-ink);border-radius:12px;padding:10px 14px;margin:0 0 12px;font-size:13px}
+
 /* small screens: navigation becomes a sticky 4-column strip (no horizontal scrolling), strip cells fill the row, controls are touch friendly */
 @media (max-width:860px){
   .shell{grid-template-columns:1fr}
-  .side{position:sticky;top:48px;z-index:20;height:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:4px;overflow:visible;padding:6px;border-right:none;border-bottom:1px solid var(--line)}
+  .side{position:sticky;top:48px;z-index:20;height:auto;background:var(--frame);display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:4px;overflow:visible;padding:6px;border-right:none;border-bottom:1px solid var(--line)}
   .side h6,.side .foot{display:none}
   .nav{flex-direction:column;justify-content:center;gap:3px;padding:6px 2px;font-size:11.5px;line-height:1.2;text-align:center;white-space:normal;min-height:48px}
   .nav svg{width:18px;height:18px}
-  .main{padding:14px 12px 40px}
+  .main{padding:14px 12px 40px;margin:0;border-radius:12px 12px 0 0}
   .page-head h1{width:100%}
   .page-head{gap:8px}
   .btn{min-height:38px}
@@ -180,9 +213,6 @@ footer.foot-note{margin-top:22px;font-size:12px;color:var(--ink2)}
   .pop select{font-size:16px;min-height:38px}
   .pop .item{min-height:40px}
   .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .kpi:nth-child(odd){border-left:none}
-  .kpi{border-top:1px solid var(--line)}
-  .kpi:nth-child(-n+2){border-top:none}
   .kpi:last-child:nth-child(odd){grid-column:span 2}
   .card{padding:14px 12px}
   .grid{gap:10px}
