@@ -43,16 +43,26 @@ def main():
         {"l": "Top 10% of customers", "v": f"{byid['concentration']['evidence']['top10_share'] * 100:.0f}%", "d": "of net revenue"},
         {"l": "Revenue with no customer id", "v": f"{byid['tracking_gap']['evidence']['sales_without_customer_id'] / byid['tracking_gap']['evidence']['total_sales'] * 100:.0f}%", "d": "customer metrics cover the rest"},
     ]
+    wk = pd.read_csv(t / "weekly_net_revenue.csv")
+    spark = {"monthly": [round(float(v), 2) for v in mon["net_revenue"]], "weekly": [round(float(v), 2) for v in wk["net_revenue"]]}
+    customer_model = {
+        "auc_model": cm["auc_model"], "auc_baseline": cm["auc_baseline"],
+        "total_actual": cm["total_actual"], "total_pred_model": cm["total_pred_model"], "total_pred_baseline": cm["total_pred_baseline"],
+        "overshoot": cm["total_pred_model"] / cm["total_actual"] - 1,
+        "spearman_model": cm["spearman_spend_model"], "spearman_baseline": cm["spearman_spend_baseline"],
+        "horizon_days": cm["horizon_days"],
+    }
     data = {
         "meta": {"subtitle": "Real, anonymised transactions of a UK online gift retailer, 1 Dec 2009 to 9 Dec 2011. Source: UCI Online Retail II (CC BY 4.0). All code in this repository.",
                  "footer": "Data: Chen, D. (2012). Online Retail II. UCI Machine Learning Repository, DOI 10.24432/C5CG6D, licensed CC BY 4.0. This is an independent analysis, not affiliated with the retailer or UCI. Customer ids are anonymised in the source and no customer-level data is published here. Forecasts are estimates with measured past error, not guarantees."},
         "hero": hero, "forecast": forecast, "monthly": monthly, "cohorts": cohorts, "rfm": rfm,
-        "insights": ins["insights"],
+        "insights": ins["insights"], "spark": spark, "customer_model": customer_model,
     }
     tpl = (ROOT / "report" / "template.html").read_text(encoding="utf-8")
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"), default=float).replace("</", "<\\/")
     out = ROOT / "report" / "index.html"
-    out.write_text(tpl.replace("/*__DATA__*/", payload), encoding="utf-8")
+    theme = (ROOT / "report" / "theme.css").read_text(encoding="utf-8")
+    out.write_text(tpl.replace("/*__THEME__*/", theme).replace("/*__DATA__*/", payload), encoding="utf-8")
     print(f"{out} {out.stat().st_size / 1024:.0f} KB")
 
 
